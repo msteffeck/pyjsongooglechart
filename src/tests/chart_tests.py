@@ -26,3 +26,6 @@ class GoogleChartTests(unittest.TestCase):
         self.assertEqual(g[0].values[0], ("hullo",))
         self.assertEqual(g[1].values[0], (7, "7"))
 
+        json = g._build_json_structure()
+        self.assertEqual(json,
+                         [{'c': [{'v': 'hullo'}, {'f': '7', 'v': 7}]}])

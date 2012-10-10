@@ -6,6 +6,9 @@ class ChartColumn(object):
         self.values = []
         self.axis = 0
 
+    def __iter__(self):
+        return iter(self.values)
+
     def insert_row(self, *args):
         self.validate(args[0])
         self.values.append(args)
