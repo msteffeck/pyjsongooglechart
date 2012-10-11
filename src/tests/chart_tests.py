@@ -5,7 +5,7 @@ from ..pyjsongooglechart import GoogleChart
 from ..pyjsongooglechart import (StringColumn, NumberColumn)
 
 class GoogleChartTests(unittest.TestCase):
-    def test_basic(self):
+    def test_base(self):
         # Verify we can create a new chart
         g = GoogleChart("Test")
         self.assertEqual(g.title, "Test")
@@ -21,14 +21,15 @@ class GoogleChartTests(unittest.TestCase):
         self.assertRaises(IndexError, g.__getitem__, 2)
         self.assertTrue(isinstance(g[1], NumberColumn))
 
+        # Verify the behavior of row insertion
         g.insert_row("hullo", (7, "7"))
         self.assertEqual(g[0].values[0], ("hullo",))
         self.assertEqual(g[1].values[0], (7, "7"))
 
+        # Verify the data structures can be assembled correctly
         rows = g._build_rows_struct()
         self.assertEqual(rows,
                          [{'c': [{'v': 'hullo'}, {'f': '7', 'v': 7}]}])
-
         cols = g._build_columns_struct()
         self.assertEqual(cols,
                         [{  'pattern': '',

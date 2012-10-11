@@ -95,8 +95,7 @@ class GoogleChart(object):
         return struct
 
     def _build_columns_struct(self):
-        """Build the structure that defines the columns of the chart
-
+        """Build the json structure that defines the columns of the chart
         """
         struct = []
         for column in self.columns:
@@ -109,16 +108,27 @@ class GoogleChart(object):
             )
         return struct
 
-    def render(self):
+    def build_data_struct(self):
         cols = self._build_columns_struct()
         rows = self._build_rows_struct()
-
 
         struct = {
             "cols": cols,
             "rows": rows
         }
+        return struct
+
+    def render(self):
+        struct = self.build_data_struct()
         return json.dumps(struct)
+
+
+class PieChart(GoogleChart):
+    def __init__(self, title="", auto_generate_columns=True):
+        super(PieChart, self).__init__(title)
+        if auto_generate_columns:
+            self.add_string_column()
+            self.add_number_column()
 
 
 class ComboChart(GoogleChart):
