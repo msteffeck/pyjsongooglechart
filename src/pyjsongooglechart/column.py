@@ -1,8 +1,12 @@
 
 class ChartColumn(object):
-    def __init__(self, label=""):
+    type = ''
+
+    def __init__(self, label="", id="", p=""):
         super(ChartColumn, self).__init__()
         self.label = label
+        self.id = id
+        self.p = p
         self.values = []
         self.axis = 0
 
@@ -22,19 +26,25 @@ class ChartColumn(object):
         pass
 
 
-class BooleanColumn(ChartColumn): pass
+class BooleanColumn(ChartColumn):
+    type = 'boolean'
 
 
-class NumberColumn(ChartColumn): pass
+class NumberColumn(ChartColumn):
+    type = 'number'
 
 
-class StringColumn(ChartColumn): pass
+class StringColumn(ChartColumn):
+    type = 'string'
 
 
-class DateColumn(ChartColumn): pass
+class DateColumn(ChartColumn):
+    type = 'date'
 
 
-class DatetimeColumn(ChartColumn): pass
+class DatetimeColumn(ChartColumn):
+    type = 'datetime'
 
 
-class TimeofdayColumn(ChartColumn): pass
+class TimeofdayColumn(ChartColumn):
+    type = 'timeofday'

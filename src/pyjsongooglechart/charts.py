@@ -1,4 +1,5 @@
 import itertools
+import json
 
 from .column import (StringColumn, NumberColumn, BooleanColumn,
                      DateColumn, DatetimeColumn, TimeofdayColumn)
@@ -13,29 +14,29 @@ class GoogleChart(object):
     def __getitem__(self, item):
         return self.columns[item]
 
-    def _add_column(self, column, index=None):
+    def add_column(self, column, index=None):
         if index is not None:
             self.columns.insert(index, column)
         else:
             self.columns.append(column)
 
-    def add_string_column(self, label="", index=None):
-        self._add_column(StringColumn(label), index)
+    def add_string_column(self, label="", id="", p=""):
+        self.add_column(StringColumn(label, id, p))
 
-    def add_number_column(self, label="", index=None):
-        self._add_column(NumberColumn(label), index)
+    def add_number_column(self, label="", id="", p=""):
+        self.add_column(NumberColumn(label, id, p))
 
-    def add_boolean_column(self, label="", index=None):
-        self._add_column(BooleanColumn(label), index)
+    def add_boolean_column(self, label="", id="", p=""):
+        self.add_column(BooleanColumn(label, id, p))
 
-    def add_date_column(self, label="", index=None):
-        self._add_column(DateColumn(label), index)
+    def add_date_column(self, label="", id="", p=""):
+        self.add_column(DateColumn(label, id, p))
 
-    def add_datetime_column(self, label="", index=None):
-        self._add_column(DatetimeColumn(label), index)
+    def add_datetime_column(self, label="", id="", p=""):
+        self.add_column(DatetimeColumn(label, id, p))
 
-    def add_timeofday_column(self, label="", index=None):
-        self._add_column(TimeofdayColumn(label), index)
+    def add_timeofday_column(self, label="", id="", p=""):
+        self.add_column(TimeofdayColumn(label, id, p))
 
     def insert_row(self, *args):
         for i, arg in enumerate(args):
@@ -47,8 +48,8 @@ class GoogleChart(object):
             except IndexError:
                 raise ValueError("There are more values than columns")
 
-    def _build_json_structure(self):
-        """Builds the json structure from the attached columns
+    def _build_rows_struct(self):
+        """Builds the json structure for all the chart's rows
 
         The following code may look a little complicated, so I think it's
         prudent that I explain what's happening:
@@ -93,8 +94,31 @@ class GoogleChart(object):
             })
         return struct
 
+    def _build_columns_struct(self):
+        """Build the structure that defines the columns of the chart
+
+        """
+        struct = []
+        for column in self.columns:
+            struct.append({
+                "id": column.id,
+                "label": column.label,
+                "pattern": "",
+                "type": column.type,
+                "p": column.p}
+            )
+        return struct
+
     def render(self):
-        struct = self._build_json_structure()
+        cols = self._build_columns_struct()
+        rows = self._build_rows_struct()
+
+
+        struct = {
+            "cols": cols,
+            "rows": rows
+        }
+        return json.dumps(struct)
 
 
 class ComboChart(GoogleChart):

@@ -1,4 +1,3 @@
-import sys
 import unittest
 
 
@@ -18,7 +17,7 @@ class GoogleChartTests(unittest.TestCase):
         self.assertEqual(g[0].label, "Column0")
 
         # Verify the behavior of column indexing
-        g.add_number_column("Column2", index=2)
+        g.add_column(NumberColumn("Column2"), index=2)
         self.assertRaises(IndexError, g.__getitem__, 2)
         self.assertTrue(isinstance(g[1], NumberColumn))
 
@@ -26,6 +25,20 @@ class GoogleChartTests(unittest.TestCase):
         self.assertEqual(g[0].values[0], ("hullo",))
         self.assertEqual(g[1].values[0], (7, "7"))
 
-        json = g._build_json_structure()
-        self.assertEqual(json,
+        rows = g._build_rows_struct()
+        self.assertEqual(rows,
                          [{'c': [{'v': 'hullo'}, {'f': '7', 'v': 7}]}])
+
+        cols = g._build_columns_struct()
+        self.assertEqual(cols,
+                        [{  'pattern': '',
+                            'type': 'string',
+                            'id': '',
+                            'p': '',
+                            'label': 'Column0'},
+                         {  'pattern': '',
+                            'type': 'number',
+                            'id': '',
+                            'p': '',
+                            'label': 'Column2'}])
+
