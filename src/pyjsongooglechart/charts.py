@@ -51,8 +51,8 @@ class GoogleChart(object):
     def _build_rows_struct(self):
         """Builds the json structure for all the chart's rows
 
-        The following code may look a little complicated, so I think it's
-        prudent that I explain what's happening:
+        The following code may look a little complicated, so here is a somewhat
+        verbose explanation of what's happening
 
         Step 1)
         Each column contains its associated values for the entire chart. The
