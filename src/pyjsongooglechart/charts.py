@@ -3,6 +3,7 @@ import json
 
 from .column import (StringColumn, NumberColumn, BooleanColumn,
                      DateColumn, DatetimeColumn, TimeofdayColumn)
+from .options import Options
 
 class GoogleChart(object):
 
@@ -10,6 +11,7 @@ class GoogleChart(object):
         super(GoogleChart, self).__init__()
         self.title = title
         self.columns = []
+        self.options = Options()
 
     def __getitem__(self, item):
         return self.columns[item]
