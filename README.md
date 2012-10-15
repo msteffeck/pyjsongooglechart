@@ -15,15 +15,20 @@ charts.
 
 
 ### Basic Chart
-Pie charts are probably the most basic chart; therefore, a good place to start.
+Pie charts are probably the most basic charts; therefore, a good place to start.
 
 ```python
 from pyjsongooglechart import PieChart
 
-chart = PieChart("Electoral College Votes")
+chart = PieChart("Electoral College Votes") # Initialized with the title; optional
+
+# Each argument represents a column. Pie charts have two columns; the first for
+# the slice title, and the second contains the numeric value.
 chart.insert_row("California", 55)
 chart.insert_row("Nevada", 5)
 chart.insert_row("Texas", 34)
+
+# Renders the above data and options (explained below) into a JSON string
 json = chart.render_json()
 ```
 
@@ -36,7 +41,7 @@ from django.http import HttpResponse
 return HttpResponse(json, mimetype="application/json")
 ```
 
-### Next Step
+### Customizations
 The PieChart produced by the above code is rather simple. However, we can spruce
 it up. Google Charts allows you to change the display text for each row. This
 library supports that:
@@ -46,8 +51,8 @@ chart.insert_row("Washington", (12, "Twelve"))
 chart.insert_row("Maine", (4, "Four"))
 ```
 
-We can also some add some customization to the chart. The following options are
-all defined within the Google Charts docs:
+We can also modify the options of the chart. The following options are all
+defined within the Google Charts docs:
 
 ```python
 chart.options.is3D = True
