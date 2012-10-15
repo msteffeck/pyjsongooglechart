@@ -120,9 +120,22 @@ class GoogleChart(object):
         }
         return struct
 
-    def render(self):
-        struct = self.build_data_struct()
-        return json.dumps(struct)
+    def build_options_struct(self):
+        struct = self.options.build_struct()
+        if struct is None:
+            struct = {}
+        if "title" not in struct:
+            struct['title'] = self.title
+        return struct
+
+    def render_dict(self):
+        data_struct = self.build_data_struct()
+        options_struct = self.build_options_struct()
+        return {"chart": data_struct,
+                "options": options_struct}
+
+    def render_json(self):
+        return json.dumps(self.render_dict())
 
 
 class PieChart(GoogleChart):

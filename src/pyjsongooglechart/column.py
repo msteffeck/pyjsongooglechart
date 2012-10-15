@@ -13,6 +13,7 @@ class ChartColumn(object):
         self.p = p
         self.values = []
         self.axis = 0
+        # TODO: Eventually, we should allow options to be specified for columns
 
     def __iter__(self):
         return iter(self.values)

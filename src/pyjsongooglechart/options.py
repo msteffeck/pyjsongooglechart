@@ -26,6 +26,8 @@ class Options(object):
     def __repr__(self):
         return repr(self._value)
 
+    # TODO: Allow options to be built with a dict
+
     def build_struct(self):
         # It's possible this Options was created without any values, exclude it
         if not self._attributes and self._value is None:

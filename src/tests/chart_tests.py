@@ -43,3 +43,22 @@ class GoogleChartTests(unittest.TestCase):
                             'p': '',
                             'label': 'Column2'}])
 
+    def test_options(self):
+        g = GoogleChart("Title")
+        self.assertEqual(g.options._attributes, {})
+
+        g.options.height = 50
+        g.options.width = 55
+        g.options.legend.position = 'bottom'
+
+        expected = {"height": 50,
+                    "width": 55,
+                    "title": "Title",
+                    "legend": {"position": "bottom"}
+                   }
+        self.assertEqual(g.build_options_struct(), expected)
+
+        g.options.title = "New Title"
+        expected['title'] = "New Title"
+        self.assertEqual(g.build_options_struct(), expected)
+
