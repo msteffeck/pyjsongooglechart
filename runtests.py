@@ -11,6 +11,3 @@ if __name__ == '__main__':
     options = unittest.TestLoader().loadTestsFromTestCase(OptionsTests)
     suite = unittest.TestSuite([charts, columns, options])
     unittest.TextTestRunner(verbosity=2).run(suite)
-
-
-# Some pull test comment
