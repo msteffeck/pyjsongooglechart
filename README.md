@@ -1,3 +1,9 @@
+## This Project is no longer being developed. 
+After building this, I found that Google Charts began accepting a much simpler
+JSON format. I'll keep this up on github, though, because it doesn't hurt to leave
+it up and there is some neat code in here. 
+
+
 pyjsongooglechart
 =================
 
@@ -61,6 +67,3 @@ chart.options.height = 500
 chart.options.width = 600
 ```
 
-
-
-##### Work in Progress. More to come...
